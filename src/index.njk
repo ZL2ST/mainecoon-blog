@@ -13,7 +13,7 @@ layout: layouts/base.njk
 <section class="latest">
   <h2 class="label">Latest entry</h2>
   <a class="latest-card" href="{{ latest.url }}">
-    <div class="cover">{% cover latest.inputPath, latest.data.cover %}</div>
+    <div class="cover">{% cover latest.inputPath, latest.data.cover, latest.data.order %}</div>
     <div class="meta">
       <time datetime="{{ latest.date | isoDate }}">{{ latest.date | readableDate }}</time>
       {% if latest.data.title %}<h3>{{ latest.data.title }}</h3>{% endif %}

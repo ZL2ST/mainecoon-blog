@@ -1,7 +1,7 @@
 {
   "name": "maincoon-blog",
   "version": "1.0.0",
-  "description": "Maincoon — a photo journal built with Eleventy",
+  "description": "The Maine Coon Journal — a photo journal built with Eleventy",
   "scripts": {
     "dev": "eleventy --serve",
     "build": "npm run clean && eleventy",

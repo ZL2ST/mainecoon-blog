@@ -1,4 +1,6 @@
-# Maincoon: Eleventy photo journal
+# The Maine Coon Journal: Eleventy photo journal
+
+The repo and package are `maincoon-blog`. The displayed site title comes from `src/_data/site.js`.
 
 A personal photo blog. Each entry is a short journal text (little or no styling) plus a gallery of one or more photos, mostly high-contrast black and white. **The overriding goal is low-effort posting:** the owner creates a dated folder, writes `index.md`, drops in raw photos, and the build does everything else. Don't add steps, required front matter or manual image handling to that workflow.
 
@@ -31,7 +33,8 @@ Node and npm are installed via NVM. Eleventy v3 (ESM config), `@11ty/eleventy-im
 - Entry text and photos share one folder per entry, rather than living in separate trees.
 - Entry page: text first, then a justified thumbnail grid (CSS-only: `flex-grow`/basis from `--ar`), then older/newer links.
 - **White theme only.** There's deliberately no dark mode, and the lightbox is white too. Thumbnails get a faint `--edge` outline so pale skies don't dissolve into the page.
-- **Covers:** optional `cover: <filename>` front matter, defaulting to the first photo in natural filename order. Covers on the Journal list and home page are **resized, never cropped** (max-height cap for portraits).
+- **Gallery order:** natural filename order by default. Optional `order:` front matter (a list or a single name) puts those photos first and the rest follow in filename order. It's a partial list on purpose, so newly added photos can never be hidden. Names match case-insensitively; unknown names warn once per build and are skipped.
+- **Covers:** optional `cover: <filename>` front matter, defaulting to the first photo in gallery order (so `order:` also sets the cover). Covers on the Journal list and home page are **resized, never cropped** (max-height cap for portraits).
 - Journal pagination: **5 entries per page** (`size` in `src/blog/index.njk`). URLs are `/blog/`, then `/blog/page/N/`.
 - Entry URLs: `/blog/YYYY-MM-DD/`.
 
@@ -41,7 +44,8 @@ Node and npm are installed via NVM. Eleventy v3 (ESM config), `@11ty/eleventy-im
   - `addDateParsing`: the entry date comes from the folder name.
   - `entries` collection: newest first.
   - `processImage`: works out widths so the longest side is at most 2000 (thumb at most 800), accounting for EXIF orientation; eleventy-img bakes in the rotation.
-  - Shortcodes `{% gallery %}`, `{% cover inputPath, cover %}` and `{% image file, alt %}` (for `src/assets/`).
+  - `imagesIn(dir, order)`: the single source of photo order, shared by the gallery and cover.
+  - Shortcodes `{% gallery order %}`, `{% cover inputPath, cover, order %}` and `{% image file, alt %}` (for `src/assets/`).
   - Filters `readableDate`, `isoDate` and `excerpt`.
 - `src/entries/entries.11tydata.js`: layout, permalink and `pageTitle` for every entry.
 - `src/_data/site.js`: site name, tagline, intro, hero image, Instagram, email.
@@ -67,7 +71,7 @@ Node and npm are installed via NVM. Eleventy v3 (ESM config), `@11ty/eleventy-im
 
 ## Demo content
 
-The 14 entries (July–September 2026) are lorem ipsum with sample titles. Their photos are 10 public-domain Ansel Adams / NARA images, centre-cropped to 2:3 and duplicated across entries (sources in `DEMO_CREDITS.md`). The About page has a fake Instagram (`maincoon.photos`) and email (`hello@maincoon.example`).
+The demo entries (July–September 2026) are lorem ipsum with sample titles. Their photos are 10 public-domain Ansel Adams / NARA images, centre-cropped to 2:3 and duplicated across entries (sources in `DEMO_CREDITS.md`). The About page has a fake Instagram (`mainecoon.photos`) and email (`hello@mainecoon.example`), set in `site.js`.
 
 ## To do later
 

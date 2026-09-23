@@ -21,7 +21,10 @@ fs.writeFileSync(
   file,
   `---
 # title: Optional title
-# cover: IMG_0001.jpg   (optional; defaults to the first photo)
+# cover: IMG_0001.jpg   (optional; defaults to the first photo in the gallery)
+# order:                (optional; listed photos go first, the rest follow by filename)
+#   - IMG_0005.jpg
+#   - IMG_0002.jpg
 ---
 
 Write your journal entry here.

@@ -36,14 +36,35 @@ async function processImage(src, outSubdir) {
   return { thumb, full, ratio: (w / h).toFixed(4) };
 }
 
-// All raw images in a folder, natural filename order.
-function imagesIn(dir) {
+// Warnings print once per build (cover/gallery run on several pages per entry).
+const warned = new Set();
+function warnOnce(msg) {
+  if (warned.has(msg)) return;
+  warned.add(msg);
+  console.warn(`[maincoon] ${msg}`);
+}
+
+// Filename in `files` matching `name`, ignoring case (IMG_0001.JPG vs img_0001.jpg).
+function findImage(files, name) {
+  const lower = String(name).toLowerCase();
+  return files.find((f) => f.toLowerCase() === lower);
+}
+
+// Raw images in an entry folder: names from the optional `order:` list first,
+// then everything else in natural filename order. Unknown names warn and are skipped.
+function imagesIn(dir, order) {
   if (!fs.existsSync(dir)) return [];
-  return fs
+  const files = fs
     .readdirSync(dir)
     .filter((f) => IMAGE_EXT.test(f))
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-    .map((f) => path.join(dir, f));
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const first = [];
+  for (const name of [].concat(order ?? [])) {
+    const match = findImage(files, name);
+    if (!match) warnOnce(`order: "${name}" not found in ${dir}, skipping it`);
+    else if (!first.includes(match)) first.push(match);
+  }
+  return [...first, ...files.filter((f) => !first.includes(f))].map((f) => path.join(dir, f));
 }
 
 function entrySlug(inputPath) {
@@ -66,11 +87,13 @@ export default function (eleventyConfig) {
     api.getFilteredByGlob("src/entries/*/index.md").sort((a, b) => b.date - a.date)
   );
 
+  eleventyConfig.on("eleventy.before", () => warned.clear());
+
   // Justified thumbnail grid for the current entry; clicking opens the lightbox.
-  eleventyConfig.addShortcode("gallery", async function () {
+  eleventyConfig.addShortcode("gallery", async function (order) {
     const dir = path.dirname(this.page.inputPath);
     const slug = entrySlug(this.page.inputPath);
-    const images = await Promise.all(imagesIn(dir).map((src) => processImage(src, slug)));
+    const images = await Promise.all(imagesIn(dir, order).map((src) => processImage(src, slug)));
     if (!images.length) return "";
     const items = images
       .map(
@@ -81,15 +104,14 @@ export default function (eleventyConfig) {
     return `<div class="gallery">\n${items}\n<i></i></div>`;
   });
 
-  // Entry cover thumbnail (archive + home page): the `cover:` front matter file, else the first image.
-  eleventyConfig.addShortcode("cover", async function (inputPath, cover) {
+  // Entry cover thumbnail (archive + home page): the `cover:` front matter file,
+  // else the first image in gallery order.
+  eleventyConfig.addShortcode("cover", async function (inputPath, cover, order) {
     const dir = path.dirname(inputPath);
-    let src = cover && path.join(dir, cover);
-    if (src && !fs.existsSync(src)) {
-      console.warn(`[maincoon] cover "${cover}" not found in ${dir}, using the first image instead`);
-      src = null;
-    }
-    src ||= imagesIn(dir)[0];
+    const images = imagesIn(dir, order);
+    let src = cover && images.find((f) => path.basename(f).toLowerCase() === String(cover).toLowerCase());
+    if (cover && !src) warnOnce(`cover: "${cover}" not found in ${dir}, using the first image instead`);
+    src ||= images[0];
     if (!src) return "";
     return thumbImg(await processImage(src, entrySlug(inputPath)));
   });

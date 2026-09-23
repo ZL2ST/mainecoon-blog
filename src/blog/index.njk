@@ -12,7 +12,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
 {% for entry in entries %}
   <li>
     <a href="{{ entry.url }}">
-      <div class="cover">{% cover entry.inputPath, entry.data.cover %}</div>
+      <div class="cover">{% cover entry.inputPath, entry.data.cover, entry.data.order %}</div>
       <div class="meta">
         <time datetime="{{ entry.date | isoDate }}">{{ entry.date | readableDate }}</time>
         {% if entry.data.title %}<h2>{{ entry.data.title }}</h2>{% endif %}

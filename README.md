@@ -1,4 +1,4 @@
-# Maincoon
+# The Maine Coon Journal
 
 A photo journal built with [Eleventy](https://www.11ty.dev/). Each entry is a short text plus a gallery of photos.
 
@@ -23,8 +23,18 @@ src/entries/2026-09-24/
 ```
 
 - One entry per day: the folder name is the date.
-- The entry's cover (shown on the home page and journal list) is the first photo. To pick another, add `cover: IMG_0007.jpg` to the front matter.
-- Photos appear in filename order. Rename them (`01-…`, `02-…`) to reorder.
+- Photos appear in filename order. To change it, list the ones you want first under `order:`. Any photo you don't list follows in filename order, so you only list the ones you want to move:
+
+  ```markdown
+  ---
+  order:
+    - IMG_0042.jpg
+    - IMG_0007.jpg
+  ---
+  ```
+
+  Names are matched ignoring case. A name that doesn't match a photo is skipped with a warning in the build output.
+- The entry's cover (shown on the home page and journal list) is the first photo in the gallery. To pick a different one, add `cover: IMG_0007.jpg` to the front matter.
 - JPG, PNG, TIFF and WebP are accepted. Each photo gets a gallery thumbnail and a full-size JPEG (90% quality, longest side ≤ 2000px, never upscaled). EXIF rotation is respected.
 - To edit an entry, add or remove photos, or change `index.md`. `npm run dev` picks up changes live, and `npm run build` regenerates everything.
 
