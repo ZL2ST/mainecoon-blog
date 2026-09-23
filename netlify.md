@@ -48,7 +48,7 @@ Then I made a temporary entry `2026-09-20` locally, built it, and draft-deployed
 | Edit the text, delete 1 photo | 3 | New text shows; both sizes of the deleted photo return 404, and the page doesn't reference them |
 | Delete the entry | 0 | Entry page and its remaining images return 404; the home page no longer links to it |
 
-The test drafts remain in the Netlify deploy history (dashboard → Deploys). They're harmless and can be deleted there.
+The test drafts were then deleted from the deploy history (`npx netlify api deleteDeploy --data '{"deploy_id":"<id>"}'`; list deploys with `listSiteDeploys`).
 
 ## Quirks
 
