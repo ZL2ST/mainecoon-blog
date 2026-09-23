@@ -6,7 +6,8 @@
     "dev": "eleventy --serve",
     "build": "npm run clean && eleventy",
     "clean": "rm -rf _site",
-    "new": "node scripts/new-entry.js"
+    "new": "node scripts/new-entry.js",
+    "deploy": "npm run build && netlify deploy --prod --no-build --dir=_site --site=mainecoonnz"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +19,8 @@
     "photoswipe": "^5.4.4",
     "sharp": "^0.35.4"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "netlify-cli": "^27.8.1"
+  }
 }

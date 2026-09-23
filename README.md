@@ -6,7 +6,14 @@ A photo journal built with [Eleventy](https://www.11ty.dev/). Each entry is a sh
 npm install
 npm run dev      # http://localhost:8080, rebuilds as you edit
 npm run build    # clean production build into _site/
+npm run deploy   # clean build, then upload _site/ to Netlify (production)
 ```
+
+## Deploying
+
+`npm run deploy` publishes to https://mainecoonnz.netlify.app. It always rebuilds `_site/` from scratch and uploads it as a complete new deploy, so deleted entries and photos disappear from the live site too. Photos aren't in git, so deploys are made from this machine rather than by a Netlify git build.
+
+One-time setup: `npx netlify login` (opens a browser to authorise the CLI).
 
 ## Posting a new entry
 

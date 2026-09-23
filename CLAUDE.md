@@ -75,4 +75,4 @@ The demo entries (July–September 2026) are lorem ipsum with sample titles. The
 
 ## To do later
 
-- Hosting on **Cloudflare Pages** (build `npm run build`, output `_site`). Note that photos aren't in git, so a git-triggered CI build has no images. Deploy will likely need to upload a locally built `_site` (e.g. `wrangler pages deploy _site`) or use some other image store. Decide with the owner.
+- Hosting on **Cloudflare Pages** (build `npm run build`, output `_site`). Note that photos aren't in git, so a git-triggered CI build has no images. Deploy will likely need to upload a locally built `_site` (e.g. `wrangler pages deploy _site`) or use some other image store. Decide with the owner. A Netlify demo is currently set up (`npm run deploy`); see `netlify.md`.
