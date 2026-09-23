@@ -1,0 +1,22 @@
+---
+layout: layouts/base.njk
+gallery: true
+---
+<article class="entry">
+  <header class="entry-header">
+    <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
+    {% if title %}<h1>{{ title }}</h1>{% endif %}
+  </header>
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+</article>
+
+{% gallery %}
+
+{% set prev = collections.entries | getNextCollectionItem %}
+{% set next = collections.entries | getPreviousCollectionItem %}
+<nav class="entry-nav">
+  {% if prev %}<a class="prev" href="{{ prev.url }}"><span>Older</span>{{ prev.data.title or (prev.date | readableDate) }}</a>{% else %}<span></span>{% endif %}
+  {% if next %}<a class="next" href="{{ next.url }}"><span>Newer</span>{{ next.data.title or (next.date | readableDate) }}</a>{% endif %}
+</nav>

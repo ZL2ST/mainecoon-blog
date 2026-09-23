@@ -1,0 +1,38 @@
+---
+layout: layouts/base.njk
+pageTitle: Journal
+pagination:
+  data: collections.entries
+  size: 5
+  alias: entries
+permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}index.html"
+---
+<h1 class="page-title">Journal</h1>
+<ol class="entry-list">
+{% for entry in entries %}
+  <li>
+    <a href="{{ entry.url }}">
+      <div class="cover">{% cover entry.inputPath, entry.data.cover %}</div>
+      <div class="meta">
+        <time datetime="{{ entry.date | isoDate }}">{{ entry.date | readableDate }}</time>
+        {% if entry.data.title %}<h2>{{ entry.data.title }}</h2>{% endif %}
+        <p>{{ entry.inputPath | excerpt }}</p>
+      </div>
+    </a>
+  </li>
+{% else %}
+  <li>No entries yet.</li>
+{% endfor %}
+</ol>
+
+{% if pagination.pages.length > 1 %}
+<nav class="pager">
+  {% if pagination.href.previous %}<a class="newer" href="{{ pagination.href.previous }}">← Newer</a>{% else %}<span></span>{% endif %}
+  <ol>
+  {% for href in pagination.hrefs %}
+    <li><a href="{{ href }}"{% if href == page.url %} aria-current="page"{% endif %}>{{ loop.index }}</a></li>
+  {% endfor %}
+  </ol>
+  {% if pagination.href.next %}<a class="older" href="{{ pagination.href.next }}">Older →</a>{% else %}<span></span>{% endif %}
+</nav>
+{% endif %}

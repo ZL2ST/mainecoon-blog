@@ -1,0 +1,16 @@
+node_modules/
+_site/
+.cache/
+
+# Photos never go in git: raw images in entry folders and site assets.
+# (Processed images are written to _site/, ignored above.)
+src/entries/**/*.[jJ][pP][gG]
+src/entries/**/*.[jJ][pP][eE][gG]
+src/entries/**/*.[pP][nN][gG]
+src/entries/**/*.[tT][iI][fF]
+src/entries/**/*.[tT][iI][fF][fF]
+src/entries/**/*.[wW][eE][bB][pP]
+src/assets/*.[jJ][pP][gG]
+src/assets/*.[jJ][pP][eE][gG]
+src/assets/*.[pP][nN][gG]
+src/assets/*.[wW][eE][bB][pP]

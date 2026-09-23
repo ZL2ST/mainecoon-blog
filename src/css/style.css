@@ -1,0 +1,141 @@
+:root {
+  color-scheme: light;
+  --bg: #fff;
+  --fg: #111;
+  --muted: #6b6b6b;
+  --rule: #e5e5e5;
+  --placeholder: #f2f2f2; /* shown while images load */
+  --edge: rgba(0, 0, 0, .08); /* hairline so pale skies don't dissolve into the page */
+  --row: 240px; /* target gallery row height */
+  --text-w: 40rem;
+  --wide-w: 88rem;
+  --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --serif: Charter, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 17px/1.65 var(--font);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main { flex: 1; width: 100%; max-width: var(--wide-w); margin: 0 auto; padding: 0 1.25rem 4rem; }
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+time { font-variant-numeric: tabular-nums; }
+
+/* Header / footer */
+.site-header, .site-footer {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  max-width: var(--wide-w); width: 100%; margin: 0 auto; padding: 1.5rem 1.25rem;
+}
+.brand { font-weight: 700; letter-spacing: .02em; text-decoration: none; font-size: 1.1rem; }
+.site-header nav { display: flex; gap: 1.25rem; }
+.site-header nav a, .label, .entry-nav span, time {
+  font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+}
+.site-header nav a { text-decoration: none; }
+.site-header nav a:hover, .site-header nav a[aria-current] { color: var(--fg); }
+.site-footer { border-top: 1px solid var(--rule); font-size: .8rem; color: var(--muted); }
+.site-footer a { color: var(--muted); }
+
+/* Text */
+.prose { max-width: var(--text-w); margin: 0 auto; font-family: var(--serif); font-size: 1.1rem; }
+.prose h1, .prose h2 { font-family: var(--font); line-height: 1.2; }
+.prose p { margin: 0 0 1.1em; }
+.page-title { max-width: var(--text-w); margin: 1rem auto 2rem; font-size: 2rem; }
+
+/* Entry page */
+.entry-header { max-width: var(--text-w); margin: 2rem auto 1.5rem; }
+.entry-header h1 { margin: .25rem 0 0; font-size: 2.2rem; line-height: 1.15; }
+
+/* Justified gallery: each tile grows in proportion to its aspect ratio */
+.gallery { display: flex; flex-wrap: wrap; gap: 6px; margin: 3rem 0; }
+.gallery a {
+  flex: var(--ar) 1 calc(var(--ar) * var(--row));
+  aspect-ratio: var(--ar);
+  background: var(--placeholder);
+  overflow: hidden;
+}
+.gallery img { width: 100%; height: 100%; object-fit: cover; transition: opacity .2s; }
+.gallery a:hover img { opacity: .85; }
+.gallery img, .cover img, .hero figure img { outline: 1px solid var(--edge); outline-offset: -1px; }
+.gallery > i { flex: 1000 1 0; } /* keeps the last row from stretching */
+
+.entry-nav {
+  display: flex; justify-content: space-between; gap: 1rem;
+  max-width: var(--text-w); margin: 0 auto; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+}
+.entry-nav a { display: flex; flex-direction: column; text-decoration: none; }
+.entry-nav a:hover { text-decoration: underline; }
+.entry-nav .next { text-align: right; margin-left: auto; }
+
+/* Home */
+.hero { text-align: center; margin: 2rem auto 4rem; }
+.hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: -.03em; margin: 0; line-height: 1; }
+.tagline { color: var(--muted); margin: .5rem 0 2rem; }
+.hero figure { margin: 0 auto; max-width: 64rem; }
+.hero figure img { width: 100%; }
+.intro { max-width: var(--text-w); margin: 2rem auto 0; font-family: var(--serif); font-size: 1.15rem; }
+.latest, .recent { max-width: 64rem; margin: 0 auto 3rem; }
+.label { font-weight: 400; margin: 0 0 1rem; }
+.latest-card, .entry-list a {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 1.5rem; align-items: center;
+  text-decoration: none;
+}
+.latest-card h3, .entry-list h2 { margin: .25rem 0; font-size: 1.4rem; line-height: 1.2; }
+.latest-card p, .entry-list p { font-family: var(--serif); margin: .5rem 0; }
+.more { font-size: .9rem; text-decoration: underline; }
+/* Covers keep their aspect ratio: fit the column width, portraits capped in height */
+.cover { display: flex; justify-content: center; }
+.cover img { width: auto; max-width: 100%; max-height: var(--cover-h, 20rem); }
+.latest-card { --cover-h: 28rem; }
+.latest-card:hover img, .entry-list a:hover img { opacity: .85; }
+.recent ul { list-style: none; padding: 0; margin: 0 0 1rem; }
+.recent li { border-top: 1px solid var(--rule); }
+.recent li a { display: block; padding: .6rem 0; text-decoration: none; }
+.recent li a:hover time { color: var(--fg); }
+
+/* Archive */
+.entry-list { list-style: none; padding: 0; margin: 0 auto; max-width: 64rem; }
+.entry-list li { padding: 1.5rem 0; border-top: 1px solid var(--rule); }
+.entry-list a { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+
+/* Journal pagination */
+.pager {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
+  max-width: 64rem; margin: 1rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+  font-size: .9rem;
+}
+.pager ol { display: flex; gap: .25rem; list-style: none; margin: 0; padding: 0; }
+.pager ol a { display: block; min-width: 2rem; padding: .25rem .5rem; text-align: center; text-decoration: none; color: var(--muted); }
+.pager ol a:hover { color: var(--fg); }
+.pager ol a[aria-current] { color: var(--bg); background: var(--fg); }
+.pager .newer, .pager .older { text-decoration: none; }
+.pager .newer:hover, .pager .older:hover { text-decoration: underline; }
+.pager .older { justify-self: end; }
+
+@media (max-width: 640px) {
+  :root { --row: 130px; }
+  body { font-size: 16px; }
+  .site-header { flex-direction: column; gap: .5rem; align-items: center; }
+  .gallery { gap: 4px; margin: 2rem -1.25rem; }
+  .latest-card, .entry-list a { grid-template-columns: 1fr; gap: .75rem; }
+}
+
+/* Lightbox: white to match the site (html prefix beats photoswipe.css, which loads later) */
+html .pswp {
+  --pswp-bg: #fff;
+  --pswp-placeholder-bg: var(--placeholder);
+  --pswp-icon-color: #111;
+  --pswp-icon-color-secondary: #fff;
+  --pswp-icon-stroke-color: #fff;
+  --pswp-icon-stroke-width: 1px;
+  --pswp-error-text-color: #111;
+}
+html .pswp__counter { color: #111; text-shadow: none; }

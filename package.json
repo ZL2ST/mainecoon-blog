@@ -1,0 +1,22 @@
+{
+  "name": "maincoon-blog",
+  "version": "1.0.0",
+  "description": "Maincoon — a photo journal built with Eleventy",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "npm run clean && eleventy",
+    "clean": "rm -rf _site",
+    "new": "node scripts/new-entry.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-img": "^7.0.0",
+    "luxon": "^3.7.2",
+    "photoswipe": "^5.4.4",
+    "sharp": "^0.35.4"
+  },
+  "private": true
+}

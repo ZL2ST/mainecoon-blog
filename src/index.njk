@@ -1,0 +1,37 @@
+---
+layout: layouts/base.njk
+---
+<section class="hero">
+  <h1>{{ site.title }}</h1>
+  <p class="tagline">{{ site.tagline }}</p>
+  <figure>{% image site.heroImage, site.title %}</figure>
+  <p class="intro">{{ site.intro }}</p>
+</section>
+
+{% set latest = collections.entries[0] %}
+{% if latest %}
+<section class="latest">
+  <h2 class="label">Latest entry</h2>
+  <a class="latest-card" href="{{ latest.url }}">
+    <div class="cover">{% cover latest.inputPath, latest.data.cover %}</div>
+    <div class="meta">
+      <time datetime="{{ latest.date | isoDate }}">{{ latest.date | readableDate }}</time>
+      {% if latest.data.title %}<h3>{{ latest.data.title }}</h3>{% endif %}
+      <p>{{ latest.inputPath | excerpt(320) }}</p>
+      <span class="more">Read entry →</span>
+    </div>
+  </a>
+</section>
+
+{% if collections.entries.length > 1 %}
+<section class="recent">
+  <h2 class="label">Earlier</h2>
+  <ul>
+  {% for entry in collections.entries.slice(1, 6) %}
+    <li><a href="{{ entry.url }}"><time>{{ entry.date | readableDate }}</time>{% if entry.data.title %} — {{ entry.data.title }}{% endif %}</a></li>
+  {% endfor %}
+  </ul>
+  <a class="more" href="/blog/">All entries →</a>
+</section>
+{% endif %}
+{% endif %}
