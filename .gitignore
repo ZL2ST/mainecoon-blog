@@ -15,5 +15,5 @@ src/assets/*.[jJ][pP][eE][gG]
 src/assets/*.[pP][nN][gG]
 src/assets/*.[wW][eE][bB][pP]
 
-# Netlify CLI local state
-.netlify/
+# Wrangler (Cloudflare CLI) local state
+.wrangler/

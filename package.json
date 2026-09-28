@@ -2,12 +2,16 @@
   "name": "maincoon-blog",
   "version": "1.0.0",
   "description": "The Maine Coon Journal — a photo journal built with Eleventy",
+  "config": {
+    "pagesProject": "mainecoonnz"
+  },
   "scripts": {
     "dev": "eleventy --serve",
     "build": "npm run clean && eleventy",
     "clean": "rm -rf _site",
     "new": "node scripts/new-entry.js",
-    "deploy": "npm run build && netlify deploy --prod --no-build --dir=_site --site=mainecoonnz"
+    "deploy": "npm run build && wrangler pages deploy _site --project-name=$npm_package_config_pagesProject --branch=master --commit-dirty=true",
+    "deploy:preview": "npm run build && wrangler pages deploy _site --project-name=$npm_package_config_pagesProject --branch=preview --commit-dirty=true"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +25,6 @@
   },
   "private": true,
   "devDependencies": {
-    "netlify-cli": "^27.8.1"
+    "wrangler": "^4.142.0"
   }
 }

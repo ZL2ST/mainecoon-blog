@@ -4,7 +4,7 @@ The repo and package are `maincoon-blog`. The displayed site title comes from `s
 
 A personal photo blog. Each entry is a short journal text (little or no styling) plus a gallery of one or more photos, mostly high-contrast black and white. **The overriding goal is low-effort posting:** the owner creates a dated folder, writes `index.md`, drops in raw photos, and the build does everything else. Don't add steps, required front matter or manual image handling to that workflow.
 
-User-facing usage (posting, covers, where settings live) is in `README.md`. Keep it in sync when behaviour changes.
+User-facing usage (posting, covers, where settings live, setting up your own copy on Cloudflare Pages) is in `README.md`. Keep it in sync when behaviour changes.
 
 ## Commands
 
@@ -49,7 +49,7 @@ Node and npm are installed via NVM. Eleventy v3 (ESM config), `@11ty/eleventy-im
   - Filters `readableDate`, `isoDate` and `excerpt`.
 - `src/entries/entries.11tydata.js`: layout, permalink and `pageTitle` for every entry.
 - `src/_data/site.js`: site name, tagline, intro, hero image, Instagram, email.
-- `src/_includes/layouts/{base,entry}.njk`, `src/index.njk` (home), `src/blog/index.njk` (paginated Journal) and `src/about.md`.
+- `src/_includes/layouts/{base,entry}.njk`, `src/index.njk` (home), `src/blog/index.njk` (paginated Journal), `src/about.md` and `src/404.md` (Pages needs `/404.html`, or unknown URLs serve the home page with status 200).
 - `src/css/style.css` (theme tokens on `:root`) and `src/js/gallery.js` (PhotoSwipe init). PhotoSwipe files are passthrough-copied from `node_modules` to `/vendor/`.
 - Processed images go to `_site/img/<entry-date>/` with content-hashed names.
 
@@ -73,6 +73,6 @@ Node and npm are installed via NVM. Eleventy v3 (ESM config), `@11ty/eleventy-im
 
 The demo entries (July–September 2026) are lorem ipsum with sample titles. Their photos are 10 public-domain Ansel Adams / NARA images, centre-cropped to 2:3 and duplicated across entries (sources in `DEMO_CREDITS.md`). The About page has a fake Instagram (`mainecoon.photos`) and email (`hello@mainecoon.example`), set in `site.js`.
 
-## To do later
+## Hosting
 
-- Hosting on **Cloudflare Pages** (build `npm run build`, output `_site`). Note that photos aren't in git, so a git-triggered CI build has no images. Deploy will likely need to upload a locally built `_site` (e.g. `wrangler pages deploy _site`) or use some other image store. Decide with the owner. A Netlify demo is currently set up (`npm run deploy`); see `netlify.md`.
+Cloudflare Pages project `mainecoonnz` (https://mainecoonnz.pages.dev; name set in `package.json` `config.pagesProject`), **Direct Upload** only: `npm run deploy` builds locally and runs `wrangler pages deploy _site`. Never connect the project to git, since photos aren't in git. Wrangler 4.14x tends to reroute to Workers and then generates a `wrangler.jsonc` and rewrites `package.json` scripts. Keep no wrangler config file in the repo (see `cloudflare.md`). (Netlify was used as a trial before and has been removed from the repo.)
