@@ -1,5 +1,5 @@
 ---
-title: Last light on the peaks
+title: Last pineapple on the peaks
 cover: IMG_0004.jpg
 order:
 - IMG_0004.jpg
