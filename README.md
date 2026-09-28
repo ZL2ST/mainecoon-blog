@@ -21,6 +21,8 @@ The Cloudflare Pages project name is set in one place, `config.pagesProject` in 
 
 These steps take a fresh clone to a live site at `https://<your-name>.pages.dev`. You need Node.js 20 or later, git, and a free [Cloudflare account](https://dash.cloudflare.com/sign-up). You don't need to install Wrangler (Cloudflare's CLI) separately, because `npm install` provides it.
 
+On a Mac, `dev-mac.md` covers the same setup step by step, from installing Homebrew and Node through backing up entries and day-to-day posting.
+
 1. **Clone and install.**
 
    ```sh

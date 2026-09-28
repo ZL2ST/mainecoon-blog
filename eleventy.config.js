@@ -41,7 +41,7 @@ const warned = new Set();
 function warnOnce(msg) {
   if (warned.has(msg)) return;
   warned.add(msg);
-  console.warn(`[maincoon] ${msg}`);
+  console.warn(`[mainecoon] ${msg}`);
 }
 
 // Filename in `files` matching `name`, ignoring case (IMG_0001.JPG vs img_0001.jpg).

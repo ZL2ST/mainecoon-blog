@@ -1,6 +1,6 @@
 # The Maine Coon Journal: Eleventy photo journal
 
-The repo and package are `maincoon-blog`. The displayed site title comes from `src/_data/site.js`.
+The GitHub repo and npm package are `mainecoon-blog` (this machine's working folder is still named `maincoon-blog`). The displayed site title comes from `src/_data/site.js`.
 
 A personal photo blog. Each entry is a short journal text (little or no styling) plus a gallery of one or more photos, mostly high-contrast black and white. **The overriding goal is low-effort posting:** the owner creates a dated folder, writes `index.md`, drops in raw photos, and the build does everything else. Don't add steps, required front matter or manual image handling to that workflow.
 
