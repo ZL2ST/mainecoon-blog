@@ -41,7 +41,10 @@ Check that it worked with `node -v`. It should print `v24.x.x`.
 
 Put the project folder at `~/Sites/mainecoon-blog`. Get it either by downloading the ZIP from GitHub (**Code → Download ZIP**, then unzip it; it unzips as `mainecoon-blog-master`, so rename the folder to `mainecoon-blog`) or by copying it from another computer. If you copy it, leave out the `node_modules` and `_site` folders. They're recreated in the next step and don't work when copied between machines.
 
-The GitHub ZIP contains the entry text but **no photos**. Copy the photos into their entry folders from your backup (see [Backing up](#backing-up)) before you publish. Otherwise the next deploy will publish those entries without their pictures.
+The GitHub ZIP contains the entry text but **no photos**. What to do next depends on whose blog it is:
+
+- **Continuing this blog:** copy the photos into their entry folders from your backup (see [Backing up](#backing-up)) before you publish. Otherwise the next deploy will publish those entries without their pictures.
+- **Starting your own blog:** follow step 2, "Make it yours", under "Setting up your own copy" in `README.md`. It covers removing the demo entries, setting your title and intro in `src/_data/site.js`, editing the About page, and adding a hero image. Do this before your first deploy, or the placeholder entries and text will go live.
 
 Keep the folder in `~/Sites`, **not** in Desktop, Documents or a Dropbox/iCloud folder. Syncing services choke on the thousands of files in `node_modules`. See [Backing up](#backing-up) for how to protect your entries instead.
 
